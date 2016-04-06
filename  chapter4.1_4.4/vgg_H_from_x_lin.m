@@ -98,7 +98,7 @@ function f()
 %        xs2_real(:,i) = xs2_real(:,i)/xs2_real(3,i);
 %     end
     
-    H_Eestimation = vgg_H_from_x_lin(xs1_mesurement, xs2_real)
+    H_Eestimation = vgg_H_from_x_lin(xs1_real, xs2_real)
     
 %     
 %     H_Eestimation =

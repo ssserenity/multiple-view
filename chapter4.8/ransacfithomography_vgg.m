@@ -34,7 +34,7 @@
 
 % Adapted to use vgg functions by Peter Kovesi and Andrew Zisserman
 % 2012 Updated by Alexander Khanin
-
+% ransac 很有用！！
 function [H, inliers] = ransacfithomography_vgg(x1, x2, t)
 
     if ~all(size(x1)==size(x2))
@@ -98,7 +98,7 @@ function [inliers, H] = homogdist2d(H, x, t)
     x2     = hnormalise(x2);     
     Hx1    = hnormalise(Hx1);
     invHx2 = hnormalise(invHx2); 
-    
+    % 书本的第124页，注意误差的选择
     d2 = sum((x1-invHx2).^2)  + sum((x2-Hx1).^2);
     inliers = find(abs(d2) < t);    
     
@@ -107,7 +107,11 @@ function [inliers, H] = homogdist2d(H, x, t)
 % to a degeneracy in the calculation of a homography as needed by RANSAC.
 % This involves testing whether any 3 of the 4 points in each set is
 % colinear. 
-     
+%  书中124页摘抄下来的   
+% Sample selection: There are two issues here. First, 
+% degenerate samples should be disregarded. For example,
+% if three of the four points are collinear then a homography cannot be computed; 
+% second, the sample should consist of points with a good spatial distribution over the image.
 function r = isdegenerate(x)
 
     x1 = x(1:3,:);    % Extract x1 and x2 from x
